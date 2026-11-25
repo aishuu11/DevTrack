@@ -1,0 +1,18 @@
+# DevTrack
+
+A developer analytics dashboard that turns a GitHub username into a clear
+picture of their work. Built with vanilla HTML, CSS and JavaScript, with no
+frameworks, to focus on core web fundamentals.
+
+**Live demo:** <your GitHub Pages link>
+
+## Features
+- Search any GitHub user and view their profile
+- Fetch and display their public repositories
+- Total stars and forks, plus a language distribution chart
+- Sort by stars, forks or last updated; search and filter repositories
+- Save favourite developers (stored in the browser with localStorage)
+- Loading states and clear error handling (user not found, API rate limit, network errors)
+
+## Tech
+HTML, CSS, JavaScript (fetch, async/await), GitHub REST API, Chart.js
