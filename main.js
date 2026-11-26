@@ -5,6 +5,8 @@ const button = document.getElementById("searchBtn")
 
 const results = document.querySelector("div p")
 
+const repos = document.getElementById("Repos")
+
 // we are going to write a fucntion where when the search button is clicked then the username will be saved and it has to show in the console 
 
 
@@ -29,8 +31,10 @@ button.addEventListener("click",displayUsername)
 async function getApi(userInput) {
     const response= await fetch(`https://api.github.com/users/${userInput}`)
     if (!response.ok){  
-      console.log("failed")
-      return
+      const noUserFound = document.createElement("h2")
+      noUserFound.textContent= "No User found"
+      results.append(noUserFound)
+      return 
     }
   
     else{
@@ -55,9 +59,16 @@ function getAvatar(parsedResponse){
 }
 
 
-function displayResponse(response){
+function displayName(response){
     const profileName = document.createElement("h2")
-    profileName.textContent = `Profile name : ${response.name}`
+    // if statement carries the bad case 
+    if (response.name == null){
+      profileName.textContent = "Profile name : Name not provided "
+    }
+    else{
+      profileName.textContent = `Profile name : ${response.name}`
+    }
+
     results.append(profileName)
 
 }
@@ -92,6 +103,31 @@ function displayfollowing(parsedResponse){
   results.append(following)
 }
 
+async function displayReposList(parsedResponse){
+  const response = await fetch (parsedResponse.repos_url)
+
+  if (!response){
+    console.log("Did not fetch repos")
+  }
+
+ else{
+    console.log("Repo fetched")
+    const repo_data = await response.json()
+
+    const repo_list = document.createElement("ol")
+
+    for (const eachDict of repo_data) {
+        const item = document.createElement("li")
+        item.textContent = eachDict.name
+        repo_list.append(item)
+    }
+
+    repos.append(repo_list)
+}
+    
+
+}
+
 
 
 async function displayUsername(){
@@ -106,12 +142,21 @@ async function displayUsername(){
     else{
       // results.textContent = `You have searched for ${userInput}`
       const parsedResponse = await getApi(userInput)
-      displayResponse(parsedResponse)
-      displaybio(parsedResponse)
-      displayfollowers(parsedResponse)
-      displayfollowing(parsedResponse)
-      displayRepo(parsedResponse)
-      getAvatar(parsedResponse)
+      if (!parsedResponse){
+        return}
+      
+      else{
+        console.log(parsedResponse)
+        displayName(parsedResponse)
+        displaybio(parsedResponse)
+        displayfollowers(parsedResponse)
+        displayfollowing(parsedResponse)
+        displayRepo(parsedResponse)
+        getAvatar(parsedResponse)
+        displayReposList(parsedResponse)
+        
+        
+      }
       
 
     }
