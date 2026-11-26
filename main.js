@@ -30,11 +30,23 @@ function displayUsername(){
     const userInput = username.value.trim()
     if (userInput === ""){
         results.textContent = "Please enter a valid username"
+        // if the username is empty then we have to use return cuz since the function should end and it should not show the profile 
+        return
     }
     else{
       results.textContent = `You have searched for ${userInput}`
     }
+    // we are going to create profile sample dashboard for the username we search 
+
+    // we have learnt how to create a element just in js 
+    // the steps are create element then edit its text then append it to document 
+
+    const profileHeading = document.createElement("h2")
+    profileHeading.textContent = `Profile name : ${userInput}`
+    results.append(profileHeading)
+
     
+
 }
 
 
