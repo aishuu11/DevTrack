@@ -50,6 +50,7 @@ function getAvatar(parsedResponse){
 
     let Avatar_Pic = document.createElement("img")
     Avatar_Pic.src=parsedResponse.avatar_url
+    Avatar_Pic.width=250
     results.append(Avatar_Pic)
 }
 
@@ -60,6 +61,37 @@ function displayResponse(response){
     results.append(profileName)
 
 }
+
+
+function displayRepo(parsedResponse){
+  const totalRepo = document.createElement("h2")
+  totalRepo.textContent = `Public Repo : ${parsedResponse.public_repos}`
+  results.append(totalRepo)
+}
+
+function displaybio(parsedResponse){
+  const bio = document.createElement("h2")
+  if (parsedResponse.bio==null){
+    bio.textContent = `No Bio provided`
+  }
+  else{
+    bio.textContent = `Bio : ${parsedResponse.bio}`
+  }
+  results.append(bio)
+}
+
+function displayfollowers(parsedResponse){
+  const followers = document.createElement("h2")
+  followers.textContent = `Followers : ${parsedResponse.followers}`
+  results.append(followers)
+}
+
+function displayfollowing(parsedResponse){
+  const following = document.createElement("h2")
+  following.textContent = `Following : ${parsedResponse.following}`
+  results.append(following)
+}
+
 
 
 async function displayUsername(){
@@ -75,8 +107,11 @@ async function displayUsername(){
       // results.textContent = `You have searched for ${userInput}`
       const parsedResponse = await getApi(userInput)
       displayResponse(parsedResponse)
+      displaybio(parsedResponse)
+      displayfollowers(parsedResponse)
+      displayfollowing(parsedResponse)
+      displayRepo(parsedResponse)
       getAvatar(parsedResponse)
-
 
     }
     // we are going to create profile sample dashboard for the username we search 
