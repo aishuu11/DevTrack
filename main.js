@@ -133,6 +133,7 @@ async function displayReposList(parsedResponse){
 async function displayUsername(){
     const userInput = username.value.trim()
     results.textContent = ""
+    repos.textContent = ""
     if (userInput === ""){
         results.textContent = "Please enter a valid username"
         // if the username is empty then we have to use return cuz since the function should end and it should not show the profile 
