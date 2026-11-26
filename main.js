@@ -96,7 +96,7 @@ function displayfollowing(parsedResponse){
 
 async function displayUsername(){
     const userInput = username.value.trim()
-    
+    results.textContent = ""
     if (userInput === ""){
         results.textContent = "Please enter a valid username"
         // if the username is empty then we have to use return cuz since the function should end and it should not show the profile 
@@ -112,6 +112,7 @@ async function displayUsername(){
       displayfollowing(parsedResponse)
       displayRepo(parsedResponse)
       getAvatar(parsedResponse)
+      
 
     }
     // we are going to create profile sample dashboard for the username we search 
