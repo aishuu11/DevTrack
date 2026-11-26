@@ -1,6 +1,9 @@
 const username = document.getElementById("username")
 
+
 const button = document.getElementById("searchBtn")
+
+const results = document.querySelector("div p")
 
 
 
@@ -14,7 +17,8 @@ button.addEventListener("click",displayUsername)
 
 
 function displayUsername(){
-  console.log(username.value)
+    const userInput = username.value
+    results.textContent = `You have searched for ${userInput}`
 
 }
 
