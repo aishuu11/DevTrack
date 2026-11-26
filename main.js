@@ -36,7 +36,8 @@ async function getApi(userInput) {
     else{
       console.log("It fetched the response")
       const parsedResponse = await response.json()
-      console.log(parsedResponse)
+      console.log(parsedResponse.avatar_url)
+      
       return parsedResponse
     }
 
@@ -45,10 +46,19 @@ async function getApi(userInput) {
 
 // we are going to now loop through this dictionary from the parsedResponse so we can get what we want exactly 
 
+function getAvatar(parsedResponse){
+
+    let Avatar_Pic = document.createElement("img")
+    Avatar_Pic.src=parsedResponse.avatar_url
+    results.append(Avatar_Pic)
+}
+
+
 function displayResponse(response){
-    const profileHeading = document.createElement("h2")
-    profileHeading.textContent = `Profile name : ${response.id}`
-    results.append(profileHeading)
+    const profileName = document.createElement("h2")
+    profileName.textContent = `Profile name : ${response.name}`
+    results.append(profileName)
+
 }
 
 
@@ -65,6 +75,7 @@ async function displayUsername(){
       // results.textContent = `You have searched for ${userInput}`
       const parsedResponse = await getApi(userInput)
       displayResponse(parsedResponse)
+      getAvatar(parsedResponse)
 
 
     }
