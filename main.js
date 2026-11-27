@@ -149,8 +149,9 @@ async function displayUsername() {
         results.textContent = "Please enter a valid username";
         return;
     }
-
+    results.textContent = "Profile is loading";
     const parsedResponse = await getApi(userInput);
+    results.textContent = "";
 
     if (!parsedResponse) {
         return;
