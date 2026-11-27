@@ -7,8 +7,18 @@ const results = document.querySelector("div p");
 
 const repos = document.getElementById("Repos");
 
-// EVENT LISTENER
+// EVENT LISTENER when the search button is clicked 
 button.addEventListener("click", displayUsername);
+
+//added a keypress down and add a eventlistener when we press enter it should call the fucntion 
+
+username.addEventListener("keydown", function(event){
+   if (event.key === "Enter") {
+       displayUsername()}
+   });
+    
+
+
 
 
 // FETCH GITHUB USER API
@@ -141,7 +151,6 @@ async function displayReposList(parsedResponse) {
 async function displayUsername() {
 
     const userInput = username.value.trim();
-
     results.textContent = "";
     repos.textContent = "";
 
@@ -153,12 +162,13 @@ async function displayUsername() {
     button.disabled = true;
 
     let parsedResponse;
-
-
     try{
     parsedResponse = await getApi(userInput);
-    results.textContent = "";
-    button.disabled = false;
+     if (!parsedResponse){
+        results.textContent= "No user found"
+        return;
+    }
+    
     displayName(parsedResponse);
     displaybio(parsedResponse);
     displayfollowers(parsedResponse);
@@ -175,5 +185,6 @@ async function displayUsername() {
     finally{
         button.disabled = false;
     }
+
 
 }
