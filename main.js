@@ -7,6 +7,8 @@ const results = document.querySelector("div p");
 
 const repos = document.getElementById("Repos");
 
+const languages = ["Python","JavaScript","C++","TypeScript","CSS"]
+
 // EVENT LISTENER when the search button is clicked 
 button.addEventListener("click", displayUsername);
 
@@ -117,6 +119,7 @@ async function displayReposList(parsedResponse) {
     }
 
     const repo_data = await response.json();
+    console.log(repo_data)
 
     const repo_list = document.createElement("ol");
 
@@ -130,6 +133,22 @@ async function displayReposList(parsedResponse) {
         const repoName = document.createElement("li");
 
         const repoLink = document.createElement("a");
+        // array includes method helps us check if one specific item is present in the array and it returns a true and false method 
+
+        if (languages.includes(eachDict.language)){
+            console.log('yay')
+        }
+
+        // we are goin to have a dropdown box for the languages for the repos languages 
+
+        const language_dropdown = document.createElement("input")
+
+        language_dropdown.type = "dropdown"
+
+        repos.append(language_dropdown)
+
+
+
 
         repoLink.textContent = eachDict.name;
 
@@ -168,7 +187,7 @@ async function displayUsername() {
         results.textContent= "No user found"
         return;
     }
-    
+
     displayName(parsedResponse);
     displaybio(parsedResponse);
     displayfollowers(parsedResponse);
@@ -176,9 +195,10 @@ async function displayUsername() {
     displayRepo(parsedResponse);
     getAvatar(parsedResponse);
     await displayReposList(parsedResponse);
+    
     }
     catch(error){
-        results.textContent = "There is an erro, not able to fetch the API response"
+        results.textContent = "There is an error, not able to fetch the API response"
     }
     // when we finally even though there is a return right the code in finally will still run 
 
