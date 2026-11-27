@@ -18,7 +18,7 @@ async function getApi(userInput) {
     if (!response.ok) {
         const noUserFound = document.createElement("h2");
         noUserFound.textContent = "No User found";
-        results.append(noUserFound);
+        results.append(noUserFound); 
         return null;
     }
 
@@ -150,19 +150,30 @@ async function displayUsername() {
         return;
     }
     results.textContent = "Profile is loading";
-    const parsedResponse = await getApi(userInput);
+    button.disabled = true;
+
+    let parsedResponse;
+
+
+    try{
+    parsedResponse = await getApi(userInput);
     results.textContent = "";
-
-    if (!parsedResponse) {
-        return;
-    }
-
+    button.disabled = false;
     displayName(parsedResponse);
     displaybio(parsedResponse);
     displayfollowers(parsedResponse);
     displayfollowing(parsedResponse);
     displayRepo(parsedResponse);
     getAvatar(parsedResponse);
-
     await displayReposList(parsedResponse);
+    }
+    catch(error){
+        results.textContent = "There is an erro, not able to fetch the API response"
+    }
+    // when we finally even though there is a return right the code in finally will still run 
+
+    finally{
+        button.disabled = false;
+    }
+
 }
